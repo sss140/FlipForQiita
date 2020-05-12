@@ -7,14 +7,13 @@ import SwiftUI
 
 struct Cards:View{
     @State private var angles:(x:Double,y:Double,z:Double) = (x:0.0,y:0.0,z:0.0)//各軸の角度
-    @State private var zIndexes:(front:Double,back:Double) = (front:0.0,back:0.0)//
     
     var body: some View{
         VStack{
             Spacer()
             ZStack{
-                Card(imageName: "AH", isFront: true, angles: self.$angles, zIndex: self.$zIndexes.front)
-                Card(imageName: "gray_back", isFront: false, angles: self.$angles, zIndex: self.$zIndexes.back)
+                Card(imageName: "AH", isFront: true, angles: self.$angles)
+                Card(imageName: "gray_back", isFront: false, angles: self.$angles)
             }.animation(.linear(duration: 1.0))
             Spacer()
             VStack{
@@ -32,7 +31,7 @@ struct Card:View{
     let isFront:Bool
     
     @Binding var angles:(x:Double,y:Double,z:Double)
-    @Binding var zIndex:Double//
+    @State private var zIndex:Double = 0.0
     
     var body: some View{
         Image(self.imageName)
